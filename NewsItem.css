@@ -1,0 +1,40 @@
+/* NewsItem.css */
+
+.news-card {
+  width: 300px; /* adjust as required */
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.news-card-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.news-card-body {
+  padding: 15px;
+}
+
+.news-card-title {
+  font-size: 1.25rem;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.news-card-description {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
