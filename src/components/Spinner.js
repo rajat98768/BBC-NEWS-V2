@@ -35,11 +35,11 @@ export default class Spinner extends Component {
 
         <style>{`
           .wrapper {
-            position: relative; 
+            position: relative;
             min-height: 200px; 
             display:flex;
-            alignItem:center;
-            justifyContent:center;
+            align-item:center;
+            justify-content:center;
           }
 
           .loader-overlay {
@@ -81,3 +81,4 @@ export default class Spinner extends Component {
     );
   }
 }
+
