@@ -38,7 +38,7 @@ export default class Spinner extends Component {
             position: relative;
             min-height: 200px; 
             display:flex;
-            align-item:center;
+            align-items:center;
             justify-content:center;
           }
 
@@ -81,4 +81,5 @@ export default class Spinner extends Component {
     );
   }
 }
+
 
