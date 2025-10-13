@@ -36,7 +36,7 @@ export default class Spinner extends Component {
         <style>{`
           .wrapper {
             position: relative;
-            min-height: 200px; 
+            min-height: 100vh; 
             display:flex;
             align-items:end;
             justify-content:center;
@@ -81,6 +81,7 @@ export default class Spinner extends Component {
     );
   }
 }
+
 
 
 
