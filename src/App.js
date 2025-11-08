@@ -5,7 +5,7 @@ import News from './components/News';
 import LATEST from './components/LATEST';
 import Footer from './components/footer';
 import Spinner from './components/Spinner';
-import Checkbox from './components/Checkbox';
+
 const App = () => {
   
 
