@@ -87,7 +87,7 @@ export default class LATEST extends Component {
 
     const titleStyle = {
       marginTop: "10px",
-      fontSize: "30px",
+      fontSize: "20px",
       fontWeight: "500",
       color: "#000",
       fontFamily:"Fantasy",
@@ -124,3 +124,4 @@ export default class LATEST extends Component {
     );
   }
 }
+
