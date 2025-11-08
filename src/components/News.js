@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import Newsitem from './Newsitem';
 import './news.css';
-
+import Spinner from './Spinner';
 export default class News extends Component {
   constructor(props) {
     super(props);
     this.state = {
       articles: [],
       page: 1,
+      loading:true
     };
   }
 
@@ -16,7 +17,6 @@ export default class News extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // If page changed, or if pageSize or URL prop changed, refetch
     if (
       prevState.page !== this.state.page ||
       prevProps.URL !== this.props.URL
@@ -33,7 +33,7 @@ export default class News extends Component {
     try {
       const response = await fetch(fullUrl);
       const data = await response.json();
-      this.setState({ articles: data.articles || [] });
+      this.setState({ articles: data.articles || [],loading:false });
     } catch (error) {
       console.error('Error fetching articles:', error);
     }
@@ -43,6 +43,7 @@ export default class News extends Component {
     this.setState(
       (prevState) => ({
         page: Math.max(prevState.page - 1, 1),
+        loading:true,
       }),
       () => {
         console.log('After prev, page =', this.state.page);
@@ -54,6 +55,7 @@ export default class News extends Component {
     this.setState(
       (prevState) => ({
         page: prevState.page + 1,
+        loading:true,
       }),
       () => {
         console.log('After next, page =', this.state.page);
@@ -63,6 +65,9 @@ export default class News extends Component {
 
   render() {
     const { articles, page } = this.state;
+    if(this.state.loading===true){
+      return (<Spinner/>);
+    }
       
     return (
       
@@ -78,6 +83,8 @@ export default class News extends Component {
                   ? element.urlToImage
                   : 'https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/4301/live/22dc5b10-91da-11f0-9cf6-cbf3e73ce2b9.jpg'
               }
+              author={element.author}
+              time ={new Date(element.publishedAt).toGMTString()}
               description={element.description || ''}
               url={element.url}
             />

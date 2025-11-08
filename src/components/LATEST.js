@@ -47,7 +47,7 @@ export default class LATEST extends Component {
       position: "relative",
       border: ".1px solid #ddd",
       borderRadius: "10px",
-      boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+      
       display:"flex",
       marginRight:"60px",
       justifyContent:"center",

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -47,11 +48,11 @@ export default class Navbar extends Component {
 <nav className={`navbar-menu`}>          
             <div className="navbar-items">
               <div className="nav-item">
-                <a style={{
+                <Link style={{
                   fontSize:"20px"
 
 
-                }}href="/">Home</a>
+                }}to="/home">Home</Link>
               </div>
               <div className="nav-item">
                 <a href="/world">World</a>

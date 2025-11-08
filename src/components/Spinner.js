@@ -10,7 +10,7 @@ export default class Spinner extends Component {
     // simulate async load
     setTimeout(() => {
       this.setState({ data:"Server did not repond", loading: false });
-    }, 8000);
+    }, 6000);
   }
 
   render() {
@@ -35,11 +35,11 @@ export default class Spinner extends Component {
 
         <style>{`
           .wrapper {
-            position: relative;
-            min-height: 100vh; 
+            position: relative; 
+            min-height: 900px; 
             display:flex;
-            align-items:end;
-            justify-content:center;
+            alignItem:center;
+            justifyContent:center;
           }
 
           .loader-overlay {
@@ -81,7 +81,3 @@ export default class Spinner extends Component {
     );
   }
 }
-
-
-
-

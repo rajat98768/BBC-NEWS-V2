@@ -1,55 +1,54 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar2 from './components/Navbar2';
 import News from './components/News';
 import LATEST from './components/LATEST';
 import Footer from './components/footer';
 import Spinner from './components/Spinner';
+import Checkbox from './components/Checkbox';
+const App = () => {
+  
 
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const newsBaseUrl = "https://x9rihe4p1a.execute-api.eu-north-1.amazonaws.com/default/NEWSAPI?";
 
-export default class App extends Component {
-   constructor(props) {
-    super(props);
-    this.state = {
-      articles: [],
-      loading: true
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const response = await fetch(newsBaseUrl);
+        const data = await response.json();
+        setArticles(data);
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      } finally {
+        setLoading(false);
+      }
     };
-  }
-  fetchArticles = async () => {
-    const response = await fetch("https://x9rihe4p1a.execute-api.eu-north-1.amazonaws.com/default/NEWSAPI?");
-    let data = response.json();
 
-    setTimeout(()=>{this.setState({articles:data.articles,
-      loading:false
-    })},2000);
-  };
-  componentDidMount(){
-    this.fetchArticles();
-  }
-  render() {
-    const newsBaseUrl =
-      "https://x9rihe4p1a.execute-api.eu-north-1.amazonaws.com/default/NEWSAPI?";
-          if (this.state.loading === true) {
-      return <Spinner/>
-    }
-    return (
-      <div>
-        <Navbar2 />
-        <LATEST />
-        <h1
-          style={{
-           
-            marginTop: '10px',
-            fontFamily: 'fantasy',
-            textAlign: "center"
-          }}
-        >
-          Top Headlines
-        </h1>
+    fetchArticles();
+  }, [newsBaseUrl]);
 
-        <News pageSize={20} URL={newsBaseUrl} />
-
-        <Footer />
-      </div>
-    );
+  if (loading) {
+    return <Spinner />;
   }
-}
+
+  return (
+    <Router>
+      <Navbar2 />
+      <LATEST />
+      <h1 style={{ marginTop: '10px', fontFamily: 'fantasy', textAlign: "center" }}>
+        Top Headlines
+      </h1>
+      <Routes>
+        <Route path  =""   element={<News URL ="https://x9rihe4p1a.execute-api.eu-north-1.amazonaws.com/default/NEWSAPI?"/>}/>
+        <Route path="/home"  element={<News URL ="https://x9rihe4p1a.execute-api.eu-north-1.amazonaws.com/default/NEWSAPI?" articles={articles}/>} />
+      </Routes>
+     
+      
+      <Footer />
+    </Router>
+  );
+};
+
+export default App;

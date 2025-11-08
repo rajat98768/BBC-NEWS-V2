@@ -18,7 +18,7 @@ export default class NewsItem extends Component {
   }
 
   render() {
-    const { title, description, imagurl, url } = this.props;
+    const { title, description, imagurl, url,time ,author} = this.props;
     const { isExpanded } = this.state;
 
     const previewLength = 100;
@@ -30,20 +30,22 @@ export default class NewsItem extends Component {
     return (<>
       <div className="news-item-readmore-wrapper">
         <div className="news-image-wrapper">
+          
           <img
             src={imagurl} 
             className="news-image"
             alt={title || "news image"}
           />
         </div>
-        <h2 className="news-title">{title}</h2>
+        <h2 className="news-title">{title} <span className="badge text-bg-secondary">New</span></h2>
         <p className="news-description">
           {isExpanded || !isLong
             ? description
             : previewText
           }
         </p>
-
+       
+        <p className="card-text" style={{margin:"20px"}}><small className="text-body-secondary">by {author} on {time}</small></p>
         {isLong && (
           <button
             className="btn-read-more"
