@@ -13,7 +13,7 @@ export default class LATEST extends Component {
   async componentDidMount() {
     try {
       const url =
-        "https://x9rihe4p1a.execute-api.eu-north-1.amazonaws.com/default/NEWSAPI?";
+        "https://finnhub.io/api/v1/news?category=general&token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg";
 
       const response = await fetch(url);
       const data = await response.json();
@@ -124,4 +124,5 @@ export default class LATEST extends Component {
     );
   }
 }
+
 
