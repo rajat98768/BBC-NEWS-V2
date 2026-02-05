@@ -11,7 +11,7 @@ const App = () => {
 
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const newsBaseUrl = "wss://ws.finnhub.io?token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg";
+  const newsBaseUrl = "https://finnhub.io/api/v1/news?category=general&token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg";
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -41,8 +41,8 @@ const App = () => {
         Top Headlines
       </h1>
       <Routes>
-        <Route path  =""   element={<News URL ="wss://ws.finnhub.io?token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg"/>}/>
-        <Route path="/home"  element={<News URL ="wss://ws.finnhub.io?token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg" articles={articles}/>} />
+        <Route path  =""   element={<News URL ="https://finnhub.io/api/v1/news?category=general&token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg"/>}/>
+        <Route path="/home"  element={<News URL ="https://finnhub.io/api/v1/news?category=general&token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg" articles={articles}/>} />
       </Routes>
      
       
