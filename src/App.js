@@ -7,11 +7,12 @@ import Footer from './components/footer';
 import Spinner from './components/Spinner';
 
 const App = () => {
-  
 
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const newsBaseUrl = "https://finnhub.io/api/v1/news?category=general&token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg";
+
+  const newsBaseUrl =
+    "https://finnhub.io/api/v1/news?category=general&token=YOUR_API_KEY";
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -25,27 +26,27 @@ const App = () => {
         setLoading(false);
       }
     };
-
     fetchArticles();
-  }, [newsBaseUrl]);
-
-  if (loading) {
-    return <Spinner />;
-  }
+  }, []);
 
   return (
     <Router>
       <Navbar2 />
       <LATEST />
+
       <h1 style={{ marginTop: '10px', fontFamily: 'fantasy', textAlign: "center" }}>
         Top Headlines
       </h1>
-      <Routes>
-        <Route path  =""   element={<News URL ="https://finnhub.io/api/v1/news?category=general&token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg"/>}/>
-        <Route path="/home"  element={<News URL ="https://finnhub.io/api/v1/news?category=general&token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg" articles={articles}/>} />
-      </Routes>
-     
-      
+
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Routes>
+          <Route index element={<News articles={articles} />} />
+          <Route path="/home" element={<News articles={articles} />} />
+        </Routes>
+      )}
+
       <Footer />
     </Router>
   );
