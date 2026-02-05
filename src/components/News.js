@@ -1,116 +1,56 @@
-import React, { Component } from 'react';
-import Newsitem from './Newsitem';
-import './news.css';
-import Spinner from './Spinner';
+import React, { Component } from "react";
+import Newsitem from "./Newsitem";
+import Spinner from "./Spinner";
+import "./news.css";
+
 export default class News extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      articles: [],
-      page: 1,
-      loading:true
-    };
-  }
+  state = {
+    articles: [],
+    loading: true,
+  };
 
   componentDidMount() {
     this.fetchArticles();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      prevState.page !== this.state.page ||
-      prevProps.URL !== this.props.URL
-    ) {
-      this.fetchArticles();
-    }
-  }
-
   fetchArticles = async () => {
-    const {  URL } = this.props;
-    const { page } = this.state;
-    // Construct the complete URL including pagination
-    const fullUrl = `${URL}&page=${page}`;
     try {
-      const response = await fetch(fullUrl);
+      const response = await fetch(this.props.URL);
       const data = await response.json();
-      this.setState({ articles: data.articles || [],loading:false });
+
+      // Finnhub returns ARRAY directly
+      this.setState({
+        articles: data,
+        loading: false,
+      });
     } catch (error) {
-      console.error('Error fetching articles:', error);
+      console.error("Error fetching news:", error);
+      this.setState({ loading: false });
     }
-  };
-
-  handlePrev = () => {
-    this.setState(
-      (prevState) => ({
-        page: Math.max(prevState.page - 1, 1),
-        loading:true,
-      }),
-      () => {
-        console.log('After prev, page =', this.state.page);
-      }
-    );
-  };
-
-  handleNext = () => {
-    this.setState(
-      (prevState) => ({
-        page: prevState.page + 1,
-        loading:true,
-      }),
-      () => {
-        console.log('After next, page =', this.state.page);
-      }
-    );
   };
 
   render() {
-    const { articles, page } = this.state;
-    if(this.state.loading===true){
-      return (<Spinner/>);
-    }
-      
-    return (
-      
-      <div>
-        
-        <section className="news-grid">
-          {articles.map((element) => (
-            <Newsitem
-              key={element.url}
-              title={element.title || ''}
-              imagurl={
-                element.urlToImage
-                  ? element.urlToImage
-                  : 'https://ichef.bbci.co.uk/ace/branded_news/1200/cpsprodpb/4301/live/22dc5b10-91da-11f0-9cf6-cbf3e73ce2b9.jpg'
-              }
-              author={element.author}
-              time ={new Date(element.publishedAt).toGMTString()}
-              description={element.description || ''}
-              url={element.url}
-            />
-          ))}
-        </section>
+    const { articles, loading } = this.state;
 
-        <div className="page">
-          <button
-            disabled={page === 1}
-            type="button"
-            className="btn btn-dark"
-            onClick={this.handlePrev}
-            style={{ width: '100px' }}
-          >
-           Prev 
-          </button>
-          <button
-           disabled={page ===2}
-            type="button"
-            className="btn btn-dark"
-            onClick={this.handleNext}
-            style={{ width: '100px' }}
-          >
-            Next 
-          </button>
-        </div>
+    if (loading) return <Spinner />;
+
+    if (!articles || articles.length === 0) {
+      return <h3 style={{ textAlign: "center" }}>No news available</h3>;
+    }
+
+    return (
+      <div className="news-container">
+        {articles.map((item, index) => (
+          <Newsitem
+            key={index}
+            title={item.headline}
+            description={item.summary}
+            image={item.image}
+            url={item.url}
+            time={new Date(item.datetime * 1000).toGMTString()}
+            source={item.source}
+          />
+        ))}
       </div>
     );
   }
