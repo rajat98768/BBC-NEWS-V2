@@ -11,7 +11,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   const newsBaseUrl =
-    "https://finnhub.io/api/v1/news?category=general&token=YOUR_API_KEY";
+    "https://finnhub.io/api/v1/news?category=general&token=d625hphr01qvmk0k76b0d625hphr01qvmk0k76bg";
 
   useEffect(() => {
     const fetchArticles = async () => {
